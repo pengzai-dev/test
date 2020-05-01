@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>firebase</title>
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+  <script>
+    // TODO: Replace the following with your app's Firebase project configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBKuwH-zoVMCTmT3NupvGzvkAGPYS7VgtM",
+      authDomain: "nore-6f6c7.firebaseapp.com",
+      databaseURL: "https://nore-6f6c7.firebaseio.com",
+      projectId: "nore-6f6c7",
+      storageBucket: "nore-6f6c7.appspot.com",
+      messagingSenderId: "886379825287",
+      appId: "1:886379825287:web:0c976ee188fa8415"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script>
+    window.onload = function () {
+      // Listening for auth state changes.
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          // User is signed in.
+          var uid = user.uid;
+          var email = user.email;
+          var photoURL = user.photoURL;
+          var phoneNumber = user.phoneNumber;
+          var isAnonymous = user.isAnonymous;
+          var displayName = user.displayName;
+          var providerData = user.providerData;
+          var emailVerified = user.emailVerified;
+        }
+        updateSignInButtonUI();
+        updateSignOutButtonUI();
+        updateSignedInUserStatusUI();
+      });
+
+      // Event bindings.
+      document.getElementById('sign-in-button').addEventListener('click', onSignInClick);
+      document.getElementById('sign-out-button').addEventListener('click', onSignOutClick);
+    };
+
+    /**
+     * Function called when clicking the Login/Logout button.
+     */
+    function onSignInClick() {
+      window.open('/phone-simple-popup.html', '_blank', 'height=600px,width=450px,top=100px,left=100px');
+    }
+
+    /**
+     * Signs out the user when the sign-out button is clicked.
+     */
+    function onSignOutClick() {
+      firebase.auth().signOut();
+    }
+
+    /**
+     * Updates the state of the Sign-in form.
+     */
+    function updateSignInButtonUI() {
+      if (firebase.auth().currentUser) {
+        document.getElementById('sign-in-button').style.display = 'none';
+      } else {
+        document.getElementById('sign-in-button').style.display = 'block';
+      }
+    }
+
+    /**
+     * Updates the state of the Sign out button.
+     */
+    function updateSignOutButtonUI() {
+      if (firebase.auth().currentUser) {
+        document.getElementById('sign-out-button').style.display = 'block';
+      } else {
+        document.getElementById('sign-out-button').style.display = 'none';
+      }
+    }
+
+    /**
+     * Updates the Signed in user status panel.
+     */
+    function updateSignedInUserStatusUI() {
+      var user = firebase.auth().currentUser;
+      if (user) {
+        document.getElementById('sign-in-status').textContent = 'Signed in';
+        document.getElementById('account-details').textContent = JSON.stringify(user, null, '  ');
+      } else {
+        document.getElementById('sign-in-status').textContent = 'Signed out';
+        document.getElementById('account-details').textContent = 'null';
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <button class="mdl-button mdl-js-button mdl-button--raised" id="sign-in-button">Sign-in with Phone number</button>
+
+  <!-- Button that handles sign-out -->
+  <button class="mdl-button mdl-js-button mdl-button--raised" id="sign-out-button">Sign-out</button>
+</body>
+
+</html>
