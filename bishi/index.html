@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>笔试</title>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	</head>
+	<style>
+		/* 样式 */
+	</style>
+	<body>
+		<div id="long-tap">
+			long-tap
+		</div>
+	</body>
+	<script>
+		function registerEvent() {
+			var time = 1000;
+			var event = document.createEvent("CustomEvent");
+			event.initCustomEvent("longTap", false, true);
+			var start = false;
+			var clock;
+			document.addEventListener("mousedown", function(e) {
+				clearTimeout(clock);
+				clock = setTimeout(function() {
+					e.target.dispatchEvent(event);
+				}, time);
+			});
+			document.addEventListener("mouseup", function(e) {
+				clearTimeout(clock);
+			});
+			document.addEventListener("mousemove", function(e) {
+				clearTimeout(clock);
+			});
+		}
+		registerEvent();
+		const longTapBtn = document.getElementById("long-tap");
+		longTapBtn.addEventListener("longTap", function(e) {
+			alert("longTap");
+		});
+
+		function curry(fn) {
+			return function(...arr) {
+				let res1 = fn(...arr);
+				if (arr.length == 0) {
+					return res1;
+				}
+				let fun2 = function(...arr2) {
+					if (arr2.length == 0) {
+						return res1;
+					} else {
+						res1 = fn(res1, ...arr2);
+						return fun2;
+					}
+				};
+				return fun2;
+			};
+		}
+		function add(...arr) {
+			var res = 0;
+			for (var i in arr) {
+				res += arr[i];
+			}
+			return res;
+		}
+
+		var curryAdd = curry(add);
+		console.log(curryAdd(1, 2)(3)()); //6;
+		console.log(curryAdd(1, 2)(3, 4)(5)());
+	</script>
+</html>
