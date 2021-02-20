@@ -181,9 +181,32 @@
       //   console.timeEnd("耗时"); // 耗时: 1955.52490234375ms（打印结果不固定）
       // }, 1000);
       // window.print();
-      window.addEventListener('click',function(){
+      window.addEventListener("click", function () {
         window.find();
-      })
+      });
+
+      //创建一个类
+      function Person() {
+        this.setName=function (name) {
+          this.name = name;
+          return this;
+        }
+        this.setAge= function (age) {
+          this.age = age;
+          return this;
+        }
+      }
+      //在原型上定义相关方法
+      Person.prototype = {
+
+      };
+      //实例化
+      var person = new Person();
+      // person.setName("Mary").setAge(20);
+
+      var person2 = person.setName("1");
+      person2.setAge(20);
+      console.log(person);
     </script>
   </head>
   <!-- <frameset rows="160,*">
