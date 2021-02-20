@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div style="font-size:32px;" id="div">
+      <p style="font-size:1em;height:2em;background:red;overflow: hidden;">1</p>
+      <p></p>
+    </div>
+    <script>
+      var div = document.getElementById("div");
+      // var res = div.normalize();
+      console.log(div);
+      var array = [];
+      for (let i = 0; i < 8; i++) {
+        array[i] = [];
+        for (let j = 0; j < 8; j++) {
+          array[i][j] = 0;
+        }
+      }
+      array[0][0] = 1;
+      array[1][5] = 1;
+      array[2][4] = 1;
+      array[4][6] = 1;
+      function getRooks(qipan) {
+        var rooks = [];
+        for (let i = 0; i < 8; i++) {
+          for (let j = 0; j < 8; j++) {
+            if (qipan[i][j]) {
+              rooks.push({ x: i, y: j });
+            }
+          }
+        }
+        return rooks;
+      }
+      var rooks = getRooks(array);
+      var count = 0;
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          let isAli = true;
+          for (let k = 0; k < rooks.length; k++) {
+            if (i == rooks[k].x || j == rooks[k].y) {
+              isAli = false;
+              break;
+            }
+          }
+          if (isAli) {
+            count ++;
+            rooks.push({ x: i, y: j });
+          }
+        }
+      }
+      console.log(rooks);
+      console.log(count);
+      
+
+      // console.log(a);
+      function A(){
+        console.log(a);
+        var a =1;
+        console.log(a);
+        if(true){
+          console.log(a);
+          var a = 2;
+          console.log(a);
+        }
+      }
+      A();
+    </script>
+  </body>
+</html>
