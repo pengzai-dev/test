@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>搜索算法</title>
+  </head>
+  <body>
+    <script>
+      function dynFib(n) {
+        var val = [];
+        if (n == 1 || n == 2) {
+          return 1;
+        }
+        val = [0, 1, 1];
+        for (var i = 3; i < n; i++) {
+          val[i] = val[i - 1] + val[i - 2];
+        }
+        return val[n - 1];
+      }
+      console.log(dynFib(10));
+    </script>
+  </body>
+</html>

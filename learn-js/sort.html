@@ -15,6 +15,7 @@
         for (var i = 0; i < numElements; ++i) {
           this.dataStore[i] = i;
         }
+        this.gaps = [5, 3, 1];
       }
       CArray.prototype.insert = function () {};
       CArray.prototype.toString = function () {
@@ -106,20 +107,44 @@
         }
       };
 
-      CArray.prototype.shellsort = function(){
-        for(var g=0;g<this.gaps.length;g++){
-          
+      CArray.prototype.shellsort = function () {
+        var arr = this.dataStore;
+        var len = arr.length,
+          temp,
+
+          gap = Math.floor(len / 2);
+        for (gap; gap > 0; gap = Math.floor(gap / 2)) {
+          console.log(gap);
+         
+          for (var i = gap; i < len; i++) {
+            //保存当前要拿来对比插入的数（比较数）
+            temp = arr[i];
+            for (var j = i - gap; j >= 0 && arr[j] > temp; j -= gap) {
+              //将被比较数向后移一个增量的位置，
+              //即比较数的位置 i或者j+gap
+              arr[j + gap] = arr[j];
+              // console.log(j+gap,j);
+              
+            }
+            arr[j + gap] = temp; //插入比较数
+            // console.log(arr.toString());
+            // console.log(arr.toString());
+          }
         }
-      }
-      var numElements = 100;
+      };
+      
+      CArray.prototype.setGaps = function (arr) {
+        this.gaps = arr;
+      };
+      var numElements = 10;
       var myNums = new CArray(numElements);
       myNums.setData();
       console.log(myNums.toString());
-      var start = new Data().getTime();
+      var start = new Date().getTime();
 
-      myNums.insertingSort();
-      var stop = new Data().getTime();
-      var elapased = stop-start;
+      myNums.shellsort();
+      var stop = new Date().getTime();
+      var elapased = stop - start;
       console.log(elapased);
       console.log(myNums.toString());
     </script>
