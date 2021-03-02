@@ -120,14 +120,149 @@
     y();
     console.log(x);
   }
-  
-  foo(4); // 3
+
+  foo(); // 3
   // console.log(x);
-  function test(){
+  function test() {
     // let a=1;
-    var a =1;
-    var a=2;
+    var a = 1;
+    var a = 2;
     console.log(a);
   }
   test();
+  ("use strict");
+
+  function main() {
+    var _this = this;
+
+    var A = function A(a) {
+      _this.a = a;
+    };
+
+    new A(a);
+  }
+
+  main(1);
+  ("use strict");
+  function restricted() {
+    restricted.caller; // 报错
+    restricted.arguments; // 报错
+  }
+  restricted();
+
+  function tco(f) {
+    var value;
+    var active = false;
+    var accumulated = [];
+
+    return function accumulator() {
+      accumulated.push(arguments);
+      // console.log(accumulated);
+      if (!active) {
+        active = true;
+        while (accumulated.length) {
+          value = f.apply(this, accumulated.shift());
+        }
+        active = false;
+        return value;
+      }
+    };
+  }
+
+  var sum = tco(function (x, y) {
+    if (y > 0) {
+      return sum(x + 1, y - 1);
+    } else {
+      return x;
+    }
+  });
+
+  console.log(sum(1, 10));
+
+  function factorial(n, total) {
+    if (n === 1) return total;
+    return factorial(n - 1, n * total);
+  }
+
+  // 100001
+  //数据结构，中顺遍历
+  var root = {
+    name: "root",
+    child: [
+      {
+        name: "a",
+        child: [
+          {
+            name: "a-a",
+          },
+          {
+            name: "a-b",
+            child: [
+              {
+                name: "a-b-a",
+                child: [],
+              },
+            ],
+          },
+          {
+            name: "a-c",
+            child: [
+              {
+                name: "a-c-a",
+              },
+              {
+                name: "a-c-b",
+              },
+              {
+                name: "a-c-c",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "b",
+        child: [
+          {
+            name: "a-a",
+          },
+          {
+            name: "a-b",
+          },
+          {
+            name: "a-c",
+            child: [
+              {
+                name: "a-c-a",
+              },
+              {
+                name: "a-c-b",
+              },
+              {
+                name: "a-c-c",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+  //
+  // function paiping(tree, res = []) {
+  //   res.push(tree);
+  //   var child = tree.child;
+  //   delete tree.child;
+  //   if (child) {
+  //     for (var i in child) {
+  //       paiping(child[i], res);
+  //     }
+  //   }
+  //   return res;
+  // }
+  // var res = paiping(root);
+  // console.log(res);
+
+  // function bc_paiping(){
+
+  // }
 </script>
