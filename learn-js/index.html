@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
+      // let obj = {
+      //   p: ["Hello", { y: "World" }],
+      // };
+      // // let {
+      // //   p: [x, { y }],
+      // // } = obj;
+      // let {
+      //   p: [x, { y }],
+      //   p,
+      // } = obj;
+      // console.log(p,x,y);
+
+       
       // var numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
       // var everyResult = numbers.reduce(function (prev, cur, index, array) {
       // 	console.log(prev, cur, index);
@@ -12,7 +25,7 @@
       // });
       // console.log(everyResult);
 
-      //Date
+      //Date       
       // var date = new Date(Date.UTC(2000, 0));
       // //基于格林威时间
       // console.log(date.toString());
@@ -187,19 +200,17 @@
 
       //创建一个类
       function Person() {
-        this.setName=function (name) {
+        this.setName = function (name) {
           this.name = name;
           return this;
-        }
-        this.setAge= function (age) {
+        };
+        this.setAge = function (age) {
           this.age = age;
           return this;
-        }
+        };
       }
       //在原型上定义相关方法
-      Person.prototype = {
-
-      };
+      Person.prototype = {};
       //实例化
       var person = new Person();
       // person.setName("Mary").setAge(20);

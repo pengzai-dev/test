@@ -1,0 +1,133 @@
+<script>
+  let template = `
+  <ul>
+    <% for(let i=0; i < data.supplies.length; i++) { %>
+      <li><%= data.supplies[i] %></li>
+    <% } %>
+  </ul>
+  `;
+  function compile(template) {
+    const evalExpr = /<%=(.+?)%>/g;
+    const expr = /<%([\s\S]+?)%>/g;
+
+    template = template.replace(evalExpr, "`); \n  echo( $1 ); \n  echo(`");
+    console.log(template);
+    template = template.replace(expr, "`); \n $1 \n  echo(`");
+    console.log(template);
+
+    template = "echo(`" + template + "`);";
+
+    let script = `(function parse(data){
+      let output = "";
+
+      function echo(html){
+        output += html;
+      }
+
+      ${template}
+
+      return output;
+    })`;
+
+    return script;
+  }
+
+  let parse = eval(compile(template));
+  console.log(parse);
+  // div.innerHTML = ;
+  console.log(parse({ supplies: ["broom", "mop", "cleaner"] }));
+  function tag(...values) {
+    console.log(values);
+    // ...
+  }
+  let a = 1;
+  let b = 2;
+  tag`Hello ${a + b} world ${a * b}`;
+
+  function latex(strings) {
+    // ...
+    console.log(strings);
+  }
+
+  // let rawstr = String.raw(`Hi\n${2 + 3}!`);
+  // console.log(rawstr);
+
+  let total = 30;
+  let msg = passthru`The \total is ${total} (${total * 1.05} with tax)`;
+
+  function passthru(literals) {
+    let result = "";
+    let i = 0;
+    console.log(literals);
+    console.log(arguments);
+    while (i < literals.length) {
+      result += literals[i++];
+      if (i < arguments.length) {
+        result += arguments[i];
+      }
+    }
+
+    return result;
+  }
+
+  console.log(msg);
+  //padStart padEnd的实现
+  // console.log("abcdefg".padStart(4, "123"));
+
+  function padFun(name) {
+    return function (str, num, baseStr) {
+      if (str.length >= num) {
+        return str;
+      }
+      let prefix = "";
+      let buzu = num - str.length;
+      while (prefix.length < buzu) {
+        let curLength = Math.min(baseStr.length, buzu - prefix.length);
+        // console.log(curLength);
+        prefix += baseStr.slice(0, curLength);
+      }
+      switch (name) {
+        case "padStart":
+          return prefix + str;
+        case "padEnd":
+          return str + prefix;
+        default:
+          throw new Error("请传入正确的函数名");
+      }
+      // return name === "padStart" ? prefix + str : str + prefix;
+    };
+  }
+  var padStart = padFun("padStart");
+  var padEnd = padFun("padEnd");
+  console.log("abcdefg".padStart(11, "123") === padStart("abcdefg", 11, "123"));
+  console.log("abcdefg".padEnd(11, "123") === padEnd("abcdefg", 11, "123"));
+
+  function trim(str) {
+    return str.replace(/^\s+/, "").replace(/\s+&/, "");
+  }
+  console.log(trim("    1  1    "));
+
+  var x = 1;
+  function foo(
+    x,
+    y = function () {
+      // console.log(x);
+      x = 2;
+    }
+  ) {
+    // console.log(x);
+    var x = 3;
+    y();
+    console.log(x);
+  }
+  
+  foo(4); // 3
+  // console.log(x);
+  function test(){
+    // let a=1;
+    var a =1;
+    var a=2;
+    console.log(a);
+  }
+  test();
+</script>
