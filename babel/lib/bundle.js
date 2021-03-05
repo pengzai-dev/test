@@ -866,12 +866,12 @@
 	  return hasOwnProperty.call(it, key);
 	};
 
-	var document$2 = global$1.document;
+	var document$3 = global$1.document;
 	// typeof document.createElement is 'object' in old IE
-	var EXISTS = isObject(document$2) && isObject(document$2.createElement);
+	var EXISTS = isObject(document$3) && isObject(document$3.createElement);
 
 	var documentCreateElement = function (it) {
-	  return EXISTS ? document$2.createElement(it) : {};
+	  return EXISTS ? document$3.createElement(it) : {};
 	};
 
 	// Thank's IE8 for his funny defineProperty
@@ -1664,7 +1664,7 @@
 
 
 	var MutationObserver = global$1.MutationObserver || global$1.WebKitMutationObserver;
-	var document$1 = global$1.document;
+	var document$2 = global$1.document;
 	var process$1 = global$1.process;
 	var Promise$1 = global$1.Promise;
 	// Node.js 11 shows ExperimentalWarning on getting `queueMicrotask`
@@ -1694,9 +1694,9 @@
 
 	  // browsers with MutationObserver, except iOS - https://github.com/zloirock/core-js/issues/339
 	  // also except WebOS Webkit https://github.com/zloirock/core-js/issues/898
-	  if (!engineIsIos && !engineIsNode && !engineIsWebosWebkit && MutationObserver && document$1) {
+	  if (!engineIsIos && !engineIsNode && !engineIsWebosWebkit && MutationObserver && document$2) {
 	    toggle = true;
-	    node = document$1.createTextNode('');
+	    node = document$2.createTextNode('');
 	    new MutationObserver(flush).observe(node, { characterData: true });
 	    notify$1 = function () {
 	      node.data = toggle = !toggle;
@@ -1800,12 +1800,12 @@
 	var getInternalPromiseState = internalState.getterFor(PROMISE);
 	var PromiseConstructor = nativePromiseConstructor;
 	var TypeError$1 = global$1.TypeError;
-	var document = global$1.document;
+	var document$1 = global$1.document;
 	var process = global$1.process;
 	var $fetch = getBuiltIn('fetch');
 	var newPromiseCapability = newPromiseCapability$1.f;
 	var newGenericPromiseCapability = newPromiseCapability;
-	var DISPATCH_EVENT = !!(document && document.createEvent && global$1.dispatchEvent);
+	var DISPATCH_EVENT = !!(document$1 && document$1.createEvent && global$1.dispatchEvent);
 	var NATIVE_REJECTION_EVENT = typeof PromiseRejectionEvent == 'function';
 	var UNHANDLED_REJECTION = 'unhandledrejection';
 	var REJECTION_HANDLED = 'rejectionhandled';
@@ -1901,7 +1901,7 @@
 	var dispatchEvent = function (name, promise, reason) {
 	  var event, handler;
 	  if (DISPATCH_EVENT) {
-	    event = document.createEvent('Event');
+	    event = document$1.createEvent('Event');
 	    event.promise = promise;
 	    event.reason = reason;
 	    event.initEvent(name, false, true);
@@ -2181,6 +2181,70 @@
 	  setInterval: wrap(global$1.setInterval)
 	});
 
+	var main$1 = createCommonjsModule(function (module, exports) {
+	(function (root, factory) {
+	  {
+	    //Node, CommonJS之类的
+	    module.exports = factory();
+	  }
+	})(commonjsGlobal, function () {
+	  //方法
+	  function vieoAutoPlay(video, allowMuted = true) {
+	    video = typeof video == "string" ? document.querySelector(video) : video;
+	    var ua = navigator.userAgent.toLowerCase();
+	    var startEvent = "ontouchstart" in document.documentElement ? "touchstart" : "click";
+	    var isWeixin = ua.match(/MicroMessenger/i) == "micromessenger";
+
+	    var isIos = !!ua.match(/\(i[^;]+;( u;)? cpu.+mac os x/);
+	    var runed = false;
+	    var play = function () {
+	      if (runed) {
+	        return;
+	      }
+	      video.muted = false;
+	      video
+	        .play()
+	        .then(() => {
+	          runed = true;
+	        })
+	        .catch((err) => {
+	          runed = false;
+	        });
+	    };
+	    if (isWeixin) {
+	      //在微信下
+	      if (isIos) {
+	        if (typeof WeixinJSBridgeReady === "undefined" && document.addEventListener) {
+	          document.addEventListener(
+	            "WeixinJSBridgeReady",
+	            function () {
+	              video.play();
+	            },
+	            false
+	          );
+	        }
+	      } else {
+	        //
+	        document.addEventListener(startEvent, play, {
+	          once: false,
+	          capture: false,
+	        });
+	      }
+	    } else if (allowMuted) {
+	      //普通浏览器下
+	      video.muted = true;
+	      video.play();
+	      document.addEventListener(startEvent, play, {
+	        once: false,
+	        capture: false,
+	      });
+	    }
+	  }
+	  //暴露公共方法
+	  return vieoAutoPlay;
+	});
+	});
+
 	function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 	function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2194,6 +2258,9 @@
 	  alert(this.a);
 	};
 
+
+
+	console.log(main$1);
 	new App("a");
 	var pro = new Promise(function (resolve, reject) {
 	  setTimeout(function () {

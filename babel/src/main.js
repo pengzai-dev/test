@@ -4,6 +4,8 @@ class App {
     alert(this.a);
   }
 }
+const videoAuto = require("videoauto");
+console.log(videoAuto);
 var app = new App("a");
 
 var pro = new Promise((resolve, reject) => {

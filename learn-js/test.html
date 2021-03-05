@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // let obj = {
+      //   p: ["Hello", { y: "World" }],
+      // };
+      // // let {
+      // //   p: [x, { y }],
+      // // } = obj;
+      // let {
+      //   p: [x, { y }],
+      //   p,
+      // } = obj;
+      // console.log(p,x,y);
+
+       
+      // var numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+      // var everyResult = numbers.reduce(function (prev, cur, index, array) {
+      // 	console.log(prev, cur, index);
+      // 	return cur + prev;
+      // });
+      // console.log(everyResult);
+
+      //Date       
+      // var date = new Date(Date.UTC(2000, 0));
+      // //基于格林威时间
+      // console.log(date.toString());
+      // console.log(date.toUTCString());
+      // console.log(new Date(2000, 0).toUTCString());
+      // console.log(typeof "1".valueOf());
+
+      //RegExp
+      // var reg = /mom( and dad( and baby)?)?/gi;
+      // var str = "mom and dad and baby";
+      // console.log(reg.exec(str));
+      // var re = null,
+      // 	i;
+      // for (i = 0; i < 10; i++) {
+      // 	re = /cat/g;
+      // 	console.log(re.lastIndex)
+      // 	console.log(re.test("cataskkkk"));
+      // }
+      // for (i = 0; i < 10; i++) {
+      // 	re = new RegExp("cat", "g");
+      // 	console.log(re.test("cataskkkk"));
+      // }
+
+      // var str1 = "cat,bat,sat,fat";
+      // var pattern1 = /(.at)/;
+      // console.log(pattern1.exec(str1));
+      // console.log(pattern1.lastIndex);
+      // console.log(pattern1.exec(str1));
+      // console.log(pattern1.lastIndex);
+      // console.log(RegExp.$1);
+
+      // var num = 10.123213;
+      // console.log(num.toFixed(2));
+      // var str = "hello word";
+
+      // str.slice(3, 4);
+      // //第 1 题：写一个 mySetInterVal(fn, a, b),每次间隔 a,a+b,a+2b,...,a+nb 的时间，然后写一个 myClear，停止上面的 mySetInterVal #7
+      // function mySetInterVal(fn, a, b) {
+      //   var times = 0;
+      //   var glo = window || global;
+      //   if (!glo.timerArr) {
+      //     glo.timerArr = { curIndex: 0 };
+      //   }
+      //   var curIndex = ++glo.timerArr.curIndex;
+      //   function nextTick() {
+      //     glo.timerArr[curIndex] = setTimeout(function () {
+      //       fn();
+      //       times++;
+
+      //       nextTick();
+      //     }, a + b * times);
+      //     console.log(a + b * times);
+      //   }
+
+      //   nextTick();
+      //   return curIndex;
+      // }
+      // function myClear(id) {
+      //   var glo = window || global;
+      //   if (!id || !glo.timerArr || !glo.timerArr[id]) {
+      //     return;
+      //   }
+      //   var timer = glo.timerArr[id];
+      //   clearTimeout(timer);
+      //   timer = null;
+      //   delete glo.timerArr[id];
+      // }
+      // function runtest1() {
+      //   var timer = mySetInterVal(
+      //     function () {
+      //       console.log(1);
+      //     },
+      //     1000,
+      //     1000
+      //   );
+      //   setTimeout(function () {
+      //     myClear(timer);
+      //   }, 6000);
+      // }
+      // runtest1();
+
+      // //第 2 题：合并二维有序数组成一维有序数组，归并排序的思路
+      // function mergeSort(arr) {}
+
+      // function createFunctions() {
+      //   var result = new Array();
+      //   for (var i = 0; i < 10; i++) {
+      //     result[i] = function () {
+      //       return i;
+      //     };
+      //   }
+      // }
+
+      // var name = "The Window";
+      // var object = {
+      //   name: "my object",
+      //   getName: function () {
+      //     return this.name;
+      //   },
+      // };
+      // console.log((a = object.getName));
+      // console.log(a());
+
+      // for (var i = 0; i < 10; i++) {
+      //   // alert(1);
+      // }
+
+      // (function () {
+      //   var privateVariable = 10;
+      //   function privateFunction() {
+      //     return false;
+      //   }
+      //   MyObject = function () {};
+      //   MyObject.prototype.publicMethod = function () {
+      //     privateVariable++;
+      //     return privateFunction();
+      //   };
+      // })();
+      // var age = 29;
+      // window.color = "red";
+      // try {
+      //   delete window.age;
+      // } catch (error) {
+      //   console.log(window.age);
+      // }
+
+      // delete window.color;
+      // alert(window.age);
+      // alert(window.color);
+      // var newValue = oldValue;
+      // var newValue = window.oldValue;
+      window.onload = function () {
+        // console.log(frames);
+        // window.screenLeft = 10;
+        console.log("width", window.innerWidth, window.outerWidth);
+        console.log("height", window.innerHeight, window.outerHeight);
+        // window.addEventListener('click',function(){
+
+        //   var wroxWin = window.open("device.html","device","height=400,width=400,top=10,left=10,resizable=no,location=yes,toolbar=yes");
+        //   wroxWin.resizeTo(1000,500);
+        //   wroxWin.moveTo(100,100);
+        // })
+      };
+      // setInterval(function(){
+      //   console.log(1);
+      // },1000);
+      // setInterval(function(){
+      //   console.log(2);
+      // },1000);
+      // var obj = {
+      //   name: "name",
+      //   getName() {
+      //     alert(this.name);
+      //   },
+      // };
+      // console.time("耗时");
+      // var timer = setInterval(() => {
+      //   for (let i = 0; i < 10; i++) {
+      //     // 900ms左右
+      //   }
+      //   console.log(0);
+      // }, 100);
+      // setTimeout(() => {
+      //   console.log("1s了");
+      //   clearInterval(timer);
+      //   console.timeEnd("耗时"); // 耗时: 1955.52490234375ms（打印结果不固定）
+      // }, 1000);
+      // window.print();
+      window.addEventListener("click", function () {
+        window.find();
+      });
+
+      //创建一个类
+      function Person() {
+        this.setName = function (name) {
+          this.name = name;
+          return this;
+        };
+        this.setAge = function (age) {
+          this.age = age;
+          return this;
+        };
+      }
+      //在原型上定义相关方法
+      Person.prototype = {};
+      //实例化
+      var person = new Person();
+      // person.setName("Mary").setAge(20);
+
+      var person2 = person.setName("1");
+      person2.setAge(20);
+      console.log(person);
+    </script>
+  </head>
+  <!-- <frameset rows="160,*">
+    <frame src="device.html" name="topFrame">
+    <frameset cols="50%,50%">
+        <frame src="device.html" name="leftFrame">
+        <frame src="device.html" name="rightFrame">
+    </frameset>
+  </frameset> -->
+  <body></body>
+</html>

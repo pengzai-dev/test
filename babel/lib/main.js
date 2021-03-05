@@ -21,6 +21,9 @@ var App = function App(a) {
   alert(this.a);
 };
 
+var videoAuto = require("videoauto");
+
+console.log(videoAuto);
 var app = new App("a");
 var pro = new Promise(function (resolve, reject) {
   setTimeout(function () {
