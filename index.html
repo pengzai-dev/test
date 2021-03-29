@@ -12,29 +12,26 @@
         width: 100px;
         height: 100px;
         background-color: red;
+        /* animation: rotate 2s ease-in-out 0s infinite normal both; */
+        transform: translateZ(100px);
+        position: absolute;
+
+      }
+      @keyframes rotate {
+        0%{
+          transform: rotate(0deg);
+        }
+        100%{
+          transform: rotate(360deg);
+        }
       }
     </style>
+    <p id="fps"></p>
     <div id="div"></div>
-    <script>
-      var slowDown = true;
-      var div = document.getElementById('div');
-      window.onload = function(){
-        div.addEventListener('click',function(){
-          if (slowDown) {
-            // var e = performance.now() + 10;
-            var times = 0;
-            while (times<1000) {
-              // console.log('占用中');
-              console.log(div.style.width);
-              times++;
-            }
-          }
-          console.log('解除占用');
-          div.style.width = '200px';
-          console.log('设置完成');
-        })
-      }
-      
-    </script>
+    <br>
+    <button id="zuse">
+      阻塞5S
+    </button>
+    <script src="fps.js"></script>
   </body>
 </html>
