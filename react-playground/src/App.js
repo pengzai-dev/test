@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css";
+import FriendStatus from "./components/FrientsStatus";
+import { Component } from "react";
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { show: true };
+  }
+  handleClick = () => {
+    this.setState({ show: !this.state.show });
+  };
+  render() {
+    const status = <FriendStatus friend={{ id: 1 }}></FriendStatus>;
+    return (
+      <div className="App">
+        {this.state.show ? status : ""}
+        <button onClick={this.handleClick}>click</button>
+      </div>
+    );
+  }
 }
 
 export default App;
