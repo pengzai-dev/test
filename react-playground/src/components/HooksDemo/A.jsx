@@ -12,6 +12,5 @@ export default function A(props) {
         a:{props.a}<br/>
         <B b={b}></B>
         <p>这是从useContext来的b :{b}</p>
-        
     </div>
 }

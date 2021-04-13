@@ -1,7 +1,7 @@
-import { useCallback, useContext, useState, useRef, useImperativeHandle, forwardRef } from 'react';
+import { useCallback, useContext, useState, useRef, useImperativeHandle, forwardRef, useEffect } from 'react';
 import { AContext } from "./index";
 function C(props, ref) {
-
+    
     const inputRef = useRef();
     useImperativeHandle(ref, () => ({
         focus: () => {

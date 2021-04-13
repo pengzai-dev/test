@@ -1,7 +1,10 @@
 //index->A->B
 import A from "./A";
 import C from "./C";
-import React, { useState, useCallback, useReducer, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useReducer, useMemo, useRef, useEffect,useLayoutEffect } from 'react';
+import Counter from './Counter';
+import ScrollView from './ScrollView';
+import Form from './Form';
 export const AContext = React.createContext();
 
 const initialState = { count: 0 };
@@ -31,8 +34,25 @@ export default function HooksDemo({ initialCount }) {
             // dispatch({ type: 'reset', payload: initialCount });
         }
     );
+    
     const [b, setb] = useState(2);
     const [a, seta] = useState(1);
+    useLayoutEffect(() => {
+        console.log('layout subscribe');
+        return () => {
+            // Clean up the subscription
+            console.log('layout unsubscribe');
+        };
+    },[a,b]);
+
+    useEffect(() => {
+        console.log('effect subscribe');
+        return () => {
+            // Clean up the subscription
+            console.log('effect unsubscribe');
+        };
+    },[a,b]);
+
     function jisuan() {
         console.log('jisuan');
         return a + b;
@@ -43,6 +63,7 @@ export default function HooksDemo({ initialCount }) {
         // `current` points to the mounted text input element
         fancyInputRef.current.focus();
     };
+    const [row,setRow] = useState(1);
     return <div className="component">
         <AContext.Provider value={b}>
             <A a={a} ></A>
@@ -57,5 +78,14 @@ export default function HooksDemo({ initialCount }) {
         <button onClick={() => dispatch({ type: 'decrement' })}>-</button>
         <C ref={fancyInputRef}></C>
         <button onClick={onButtonClick}>Focus the input</button>
+        <Counter></Counter>
+        <ScrollView row={row}></ScrollView>
+        <button onClick={()=>{
+            setRow(row+1);
+        }}>row+1</button>
+        <button onClick={()=>{
+            setRow(row-1);
+        }}>row-1</button>
+        <Form></Form>
     </div>
 }
