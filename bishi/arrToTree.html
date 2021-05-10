@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr = [
+            {
+                id: 2, pid: 1
+            },
+            {
+                id: 3, pid: 1
+            },
+            {
+                id: 1, pid: null
+            },
+
+            {
+                id: 4, pid: 2
+            },
+            {
+                id: 5, pid: 3
+            },
+            {
+                id: 6, pid: 5
+            },
+        ];
+
+        function arrToTree(arr) {
+            let map = {};
+            let res = [];
+            arr.map((item) => {
+                map[item.id] = Object.assign(map[item.id] || {}, item);
+                if (!item.pid)
+                    res.push(map[item.id]);
+                if (!map[item.pid]) {
+                    map[item.pid] = { "children": [] };
+                }
+                if (!map[item.pid]["children"]) {
+                    map[item.pid]["children"] = [];
+                }
+                map[item.pid]["children"].push(map[item.id]);
+                delete map[item.id]["pid"]
+            });
+            return res[0];
+        };
+        console.log(arrToTree(arr));
+    </script>
+</body>
+
+</html>
