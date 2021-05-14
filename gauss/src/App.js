@@ -4,7 +4,6 @@ import { RandomTongji } from './components/RandomTongji';
 import Ziggurat from "node-ziggurat"
 
 function gaosi(x, u = 0, s = 1) {
-
     var y = (1 / (s * Math.sqrt(2 * Math.PI))) * Math.pow(Math.E, -(Math.pow(x - u, 2) / (2 * Math.pow(s, 2))));
     return y;
 }
