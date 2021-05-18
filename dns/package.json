@@ -11,7 +11,9 @@
     "license": "ISC",
     "dependencies": {
         "dhcp": "^0.2.20",
-        "dns2": "^2.0.0",
         "native-dns": "^0.7.0"
+    },
+    "devDependencies": {
+        "dns2": "^2.0.0"
     }
 }

@@ -1,34 +1,24 @@
-var dns = require('native-dns'),
-    server = dns.createServer();
+const dns2 = require('dns2');
 
-server.on('request', function (request, response) {
-    console.log(request)
-    response.answer.push(
-        dns.A({
-            name: request.question[0].name,
-            address: '127.0.0.1',
-            ttl: 600,
-        })
-    );
-    response.answer.push(
-        dns.A({
-            name: request.question[0].name,
-            address: '127.0.0.2',
-            ttl: 600,
-        })
-    );
-    response.additional.push(
-        dns.A({
-            name: 'hostA.example.org',
-            address: '127.0.0.3',
-            ttl: 600,
-        })
-    );
-    response.send();
+const { Packet } = dns2;
+
+const server = dns2.createUDPServer((request, send, rinfo) => {
+  const response = Packet.createResponseFromRequest(request);
+  const [ question ] = request.questions;
+  const { name } = question;
+  console.log(name);
+  response.answers.push({
+    name,
+    type: Packet.TYPE.A,
+    class: Packet.CLASS.IN,
+    ttl: 300,
+    address: '127.0.0.1'
+  });
+  send(response);
 });
 
-server.on('error', function (err, buff, req, res) {
-    console.log(err.stack);
+server.on('request', (request, response, rinfo) => {
+  console.log(request.header.id, request.questions[0]);
 });
 
-server.serve(5333);
+server.listen(53);
