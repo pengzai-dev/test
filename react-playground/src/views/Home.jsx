@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Container,
     Navbar,
@@ -9,14 +9,29 @@ import {
     Collapse,
 } from 'shards-react';
 import { Switch, Route, NavLink } from 'react-router-dom';
+import useTest from "../hooks/useTest";
+import Child from "./Child";
 export default function Home() {
     const [collapseOpen, setCollapseOpen] = useState(false);
     const toggleNavbar = () => {
         setCollapseOpen(!collapseOpen);
     };
+    const { a, changeA, showA } = useTest();
+    useEffect(()=>{
+        alert('showA change');
+    },[showA]);
     return (
         <>
-            <Navbar type="dark" theme="primary" expand="md">
+            <button
+                onClick={() => {
+                    changeA(a + 1);
+                }}
+            >
+                a+1
+            </button>
+            <button onClick={showA}>显示</button>
+            <Child clickHandle={showA}></Child>
+            {/* <Navbar type="dark" theme="primary" expand="md">
                 <NavbarBrand href="/">React Playground</NavbarBrand>
                 <NavbarToggler onClick={toggleNavbar} />
                 <Collapse open={collapseOpen} navbar>
@@ -52,7 +67,7 @@ export default function Home() {
                     <Route path="/hooks">{Hooks}</Route>
                     <Route path="/">{Home}</Route>
                 </Switch>
-            </Container>
+            </Container> */}
         </>
     );
 }
